@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <section>
+        <img class="form-logo" src="senaisplogo.png" alt="Logo Senai-SP" />
+        <form id="formulario-login" method="POST" action="/login">
+          <div class="form-grupo">
+            <label for="email"></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Digite seu e-mail"
+              required
+            />
+          </div>
+          <div class="form-grupo">
+            <label for="senha"></label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
+          <div class="form-acao2">
+            <input type="submit" value="Entrar" />
+            <a href="index.html">
+              <button type="button">Voltar à tela inicial</button>
+            </a>
+          </div>
+        </form>
+        <div class="retangulo_login"></div>
+      </section>
+    </main>
+    <footer>
+      <h5>Desenvolvido por: Maria Fernanda, Lívia, Rhuan</h5>
+    </footer>
+  </body>
+  <script src="app.js"></script>
+</html>

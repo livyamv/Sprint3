@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(imagem_de_fundo.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  color: #000;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header {
+  background-color: #e00000;
+  padding: 20px;
+  text-align: center;
+}
+
+header img {
+  max-width: 200px;
+}
+
+.form-logo {
+  display: block;
+  max-width: 150px;
+  margin: 20px auto;
+}
+
+.section {
+  text-align: center; /* Centraliza o conteúdo dentro da seção */
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.button-container, .form-acao {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 10x;
+  align-items: center;
+  
+}
+  .form-acao2{
+    position: relative;
+    z-index: 3;
+    top: 50px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #151313;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+button,
+input[type="submit"] {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #151313;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background-color: #cbc9c9;
+}
+
+.form-grupo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  background-color: rgb(208, 208, 208); 
+  top: 55px;
+  width: 255px;
+  border: 5px;
+}
+
+.retangulo_index{
+  width: 200px;
+  height: 120px;
+  top: -90px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  background-color: #f30000;
+  align-items: center;
+  border-radius: 25px;
+
+}
+
+.retangulo_login{
+  height: 180px;
+  top: -100px;
+  max-width: 4000px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  background-color: #f30000;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.retangulo_cadastro{
+  height: 220px;
+  top: -155px;
+  max-width: 350px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  background-color: #f30000;
+  align-items: center;
+  border-radius: 25px;
+}
+
+footer {
+  background-color: #e00000;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+
+}
