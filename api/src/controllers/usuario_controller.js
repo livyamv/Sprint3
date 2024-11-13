@@ -20,8 +20,8 @@ module.exports = class usuario_controller {
         .status(400)
         .json({ error: "as senhas não coincidem (não estão iguais)" });
     } else {
-      check_email = email.split("@");
-      if(check_email[1] !== "docente.senai.br"){
+      let check_email = email.split("@");
+      if(!(check_email[1] === "docente.senai.br")){
         return res.status(400).json({error: "Somente docentes podem se cadastrar"});
       }
     }
