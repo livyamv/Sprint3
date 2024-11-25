@@ -23,9 +23,9 @@ router.delete('/sala/:id', salasController.deleteSalas);
 
 //agendamentos
 router.post('/agendamento', agendamentosController.createAgend);
-router.get('/agendamento', agendamentosController.getAllAgend);
-router.put('/agendamento', agendamentosController.updateAgend);
-router.delete('/agendamento/:id', agendamentosController.deleteAgend);
+// router.get('/agendamento', agendamentosController.getAllAgend);
+// router.put('/agendamento', agendamentosController.updateAgend);
+// router.delete('/agendamento/:id', agendamentosController.deleteAgend);
 
 
 module.exports = router;
