@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(data.message);
 
         //Reseta os campos do formulário após osucesso do trabalho
-        document.getElementById("formulario-cadastro").reset();
+        // document.getElementById("formulario-cadastro").reset();
+        window.location.href = "salas.html";
       })
       .catch((error) => {
         //Captura qualquer erro que ocorra durente o processo da requisição /resposta
@@ -89,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         //Executa a resposta de sucesso -retorna ao usuário final
 
-        window.location.href = "inicial.html";
+        window.location.href = "salas.html";
       })
       .catch((error) => {
         //Captura qualquer erro que ocorra durente o processo da requisição /resposta
