@@ -5,168 +5,134 @@ const connect_database = require("../db/connect_database");
 module.exports = class agendamentoController {
   //função que armazena os dados de um novo usuário no banco de dados.
   static async createAgend(req, res) {
-    
-    //requere os dados que virão do arquivo app.js
-    const { descricao_agend, inicio_periodo,  fim_periodo } = req.body;
-
-    //filtragem de dados
-    if (!descricao_agend || !inicio_periodo || !fim_periodo ) {
+    if ( !fk_id_usuario|| !fk_id_sala || !descricao_agend || !inicio_periodo || !fim_periodo ) {
       return res
         .status(400)
-        .json({ error: "Todos os campos devem ser preenchidos" });
-    } else if (!email.includes("@")) {
-      return res.status(400).json({ error: "Email inválido. Deve conter @" });
-    } else if (senha !== check_senha) {
-      return res
-        .status(400)
-        .json({ error: "as senhas não coincidem (não estão iguais)" });
-    } else {
-      let check_email = email.split("@");
-      if(!(check_email[1] === "docente.senai.br")){
-        return res.status(400).json({error: "Somente docentes podem se cadastrar"});
-      }
-    }
-    //fim da filtragem
-
-    //query que insere os dados obtidos na tabela "usuario" como um registro
-      const query = `INSERT INTO usuario (senha, email, nome_usuario) VALUES( 
-                '${senha}', 
-                '${email}', 
-                '${nome_usuario}');`;
-      try {
-        //'try' evita que a api pare de funcionar caso ocorra um erro, fazendo as filtragens necessárias para erros do tipo "err" ou "error";
-        connect_database.query(query, function (err, results) {
-          if (err) {
-            console.log(err);
-            console.log(err.code);
-            if (err.code === "ER_DUP_ENTRY") {
-              //"ER_DUP_ENTRY" é um erro do banco de dados que ocorre quando se tenta inserir um dado igual à outro já armazenado, o que não se pode ao serem do tipo UNIQUE (único);
-              return res.status(400).json({
-                error: "O email já está vinculado a outra reserva x(",
-              });
-            } else {
-              return res
-                .status(500)
-                .json({ error: "Erro interno do servidor :(" });
-            }
-          } else {
-            return res
-              .status(201)
-              .json({ message: "Cadastro realizado com sucesso." });
-          }
-        });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Erro interno do servidor" });
-      }
-  }
-
-    //lista todos os usuários cadastrados.
-    static async getAllAgend(req, res) {
-      const query = `SELECT * FROM USUARIO;`;
-      try {
-        connect_database.query(query, function (err, results) {
-          if (err) {
-            console.error(err);
-            console.log(err.code);
-            return res.status(500).json({
-              error: " Erro interno do servidor :(",
-            });
-          } else {
-            res.status(200).json({
-              message: " Lista de todos os usuários:",
-              usuarios: results,
-            });
-          }
-        });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: " Erro interno do servidor" });
-      }
+        .json({ error: "Todos os campos devem ser prenchidos!" });
     }
 
-  //função que altera a senha do usuário caso o mesmo o desejar.
-  static async updateAgend(req, res) {
-    const { id_usuario, senha, nova_senha } = req.body;
-
-    //filtragem de dados
-    if ((!id_usuario, !senha, !nova_senha)) {
-      res.status(400).json({ error: " todos os campos devem ser preenchidos" });
-    }
-    //fim da filtragem
-
-    let query = `SELECT * FROM usuario WHERE id_usuario = ?;`;
-
+    const query = `insert into evento (descricao_agend, inicio_periodo, fim_periodo) values (?,?,?)`;
+    const values = [descricao_agend, inicio_periodo, fim_periodo];
     try {
-      //encontra a senha atual do usuário pelo seu id e descobre se a senha que ele digitou coincide
-      connect_database.query(query, [id_usuario], function (err, results) {
+      connect.query(query, values, (err) => {
         if (err) {
-          console.error(err);
-          console.log(err.code);
-          return res.status(500).json({
-            error: " Erro interno do servidor :(",
-          });
+          console.log(err);
+          return res.status(500).json({ error: "Erro ao criar o agendamento!" });
         }
-        if (results[0].senha !== senha) {
-          return res.status(400).json({
-            error: " senha incorreta",
-          });
-        } else {
-          //substitui (atualiza) a senha do usuário pela nova senha digitada por ele.
-          query = `UPDATE usuario SET senha = ? WHERE id_usuario = ?;`;
-
-          connect_database.query(
-            query,
-            [nova_senha, id_usuario],
-            function (err, results) {
-              if (err) {
-                console.error(err);
-                console.log(err.code);
-                return res.status(500).json({
-                  error: " Erro interno do servidor :(",
-                });
-              }
-              return res
-                .status(200)
-                .json({ message: " Senha alterada com sucesso" });
-            }
-          );
-        }
+        return res.status(201).json({ message: "Agendamento criado com sucesso!" });
       });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: " Erro interno do servidor" });
+      console.log("Erro ao executar consulta:", error); //o programador que irá ver está mensagem
+      return res.status(500).json({ error: "Erro interno do servidor!" });
     }
   }
 
-  //remove a conta de um usuário através de um id.
-  static async deleteAgend(req, res) {
-    const id = req.params.id;
-    const query = `DELETE FROM usuario WHERE id_usuario = ?;`;
-    try {
-      connect_database.query(query, [id], function (err, results) {
-        if (err) {
-          console.error(err);
-          console.log(err.code);
-          return res.status(500).json({
-            error: " Erro interno do servidor :(",
-          });
-        }
-        if (results.affectedRows === 0) {
-          return res.status(404).json({
-            error: " Usuário não encontrado",
-          });
-        } else {
-          return res.status(200).json({
-            message: " Usuário excluído com sucesso",
-          });
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: " Erro interno do servidor" });
-    }
-  }
+  //   //lista todos os usuários cadastrados.
+  //   static async getAllAgend(req, res) {
+  //     const query = `SELECT * FROM agendamentos;`;
+  //     try {
+  //       connect_database.query(query, function (err, results) {
+  //         if (err) {
+  //           console.error(err);
+  //           console.log(err.code);
+  //           return res.status(500).json({
+  //             error: " Erro interno do servidor :(",
+  //           });
+  //         } else {
+  //           res.status(200).json({
+  //             message: " Lista de todos os usuários:",
+  //             usuarios: results,
+  //           });
+  //         }
+  //       });
+  //     } catch (error) {
+  //       console.error(error);
+  //       res.status(500).json({ error: " Erro interno do servidor" });
+  //     }
+  //   }
+
+  // //função que altera a senha do usuário caso o mesmo o desejar.
+  // static async updateAgend(req, res) {
+  //   const { id_usuario, senha, nova_senha } = req.body;
+
+  //   //filtragem de dados
+  //   if ((!id_usuario, !senha, !nova_senha)) {
+  //     res.status(400).json({ error: " todos os campos devem ser preenchidos" });
+  //   }
+  //   //fim da filtragem
+
+  //   let query = `SELECT * FROM usuario WHERE id_usuario = ?;`;
+
+  //   try {
+  //     //encontra a senha atual do usuário pelo seu id e descobre se a senha que ele digitou coincide
+  //     connect_database.query(query, [id_usuario], function (err, results) {
+  //       if (err) {
+  //         console.error(err);
+  //         console.log(err.code);
+  //         return res.status(500).json({
+  //           error: " Erro interno do servidor :(",
+  //         });
+  //       }
+  //       if (results[0].senha !== senha) {
+  //         return res.status(400).json({
+  //           error: " senha incorreta",
+  //         });
+  //       } else {
+  //         //substitui (atualiza) a senha do usuário pela nova senha digitada por ele.
+  //         query = `UPDATE usuario SET senha = ? WHERE id_usuario = ?;`;
+
+  //         connect_database.query(
+  //           query,
+  //           [nova_senha, id_usuario],
+  //           function (err, results) {
+  //             if (err) {
+  //               console.error(err);
+  //               console.log(err.code);
+  //               return res.status(500).json({
+  //                 error: " Erro interno do servidor :(",
+  //               });
+  //             }
+  //             return res
+  //               .status(200)
+  //               .json({ message: " Senha alterada com sucesso" });
+  //           }
+  //         );
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: " Erro interno do servidor" });
+  //   }
+  // }
+
+  // //remove a conta de um usuário através de um id.
+  // static async deleteAgend(req, res) {
+  //   const id = req.params.id;
+  //   const query = `DELETE FROM usuario WHERE id_usuario = ?;`;
+  //   try {
+  //     connect_database.query(query, [id], function (err, results) {
+  //       if (err) {
+  //         console.error(err);
+  //         console.log(err.code);
+  //         return res.status(500).json({
+  //           error: " Erro interno do servidor :(",
+  //         });
+  //       }
+  //       if (results.affectedRows === 0) {
+  //         return res.status(404).json({
+  //           error: " Usuário não encontrado",
+  //         });
+  //       } else {
+  //         return res.status(200).json({
+  //           message: " Usuário excluído com sucesso",
+  //         });
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: " Erro interno do servidor" });
+  //   }
+  // }
 
 
 }
