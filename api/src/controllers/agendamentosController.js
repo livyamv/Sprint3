@@ -1,138 +1,134 @@
-//requere a função de se conectar no banco de dados para ser usada neste arquivo
 const connect_database = require("../db/connect_database");
 
-//criação e exportação da classe "agendamentoController" contendo as funções que manipulam os agendamentos no banco de dados.
 module.exports = class agendamentoController {
-  //função que armazena os dados de um novo usuário no banco de dados.
+  // Criação de um agendamento
   static async createAgend(req, res) {
-    if ( !fk_id_usuario|| !fk_id_sala || !descricao_agend || !inicio_periodo || !fim_periodo ) {
-      return res
-        .status(400)
-        .json({ error: "Todos os campos devem ser prenchidos!" });
+    const { fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo } = req.body;
+
+    // Validação dos campos obrigatórios
+    if (!fk_id_usuario || !fk_id_sala || !descricao_agend || !inicio_periodo || !fim_periodo) {
+      return res.status(400).json({ error: "Todos os campos devem ser preenchidos!" });
     }
 
-    const query = `insert into evento (descricao_agend, inicio_periodo, fim_periodo) values (?,?,?)`;
-    const values = [descricao_agend, inicio_periodo, fim_periodo];
+    // Verifica se já existe agendamento para a sala no horário
+    const checkQuery = `SELECT * FROM agendamentos WHERE fk_id_sala = ? AND 
+                        ((inicio_periodo BETWEEN ? AND ?) OR (fim_periodo BETWEEN ? AND ?))`;
+    const checkValues = [fk_id_sala, inicio_periodo, fim_periodo, inicio_periodo, fim_periodo];
+
     try {
-      connect.query(query, values, (err) => {
+      connect.query(checkQuery, checkValues, (err, results) => {
         if (err) {
           console.log(err);
-          return res.status(500).json({ error: "Erro ao criar o agendamento!" });
+          return res.status(500).json({ error: "Erro ao verificar disponibilidade da sala!" });
         }
-        return res.status(201).json({ message: "Agendamento criado com sucesso!" });
+        if (results.length > 0) {
+          return res.status(400).json({ error: "A sala já está reservada nesse horário!" });
+        }
+
+        // Inserir o novo agendamento
+        const query = `INSERT INTO agendamentos (fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo) 
+                       VALUES (?, ?, ?, ?, ?)`;
+        const values = [fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo];
+
+        connect.query(query, values, (err) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({ error: "Erro ao criar o agendamento!" });
+          }
+          return res.status(201).json({ message: "Agendamento criado com sucesso!" });
+        });
       });
     } catch (error) {
-      console.log("Erro ao executar consulta:", error); //o programador que irá ver está mensagem
+      console.log("Erro ao executar consulta:", error);
       return res.status(500).json({ error: "Erro interno do servidor!" });
     }
   }
 
-  //   //lista todos os usuários cadastrados.
-  //   static async getAllAgend(req, res) {
-  //     const query = `SELECT * FROM agendamentos;`;
-  //     try {
-  //       connect_database.query(query, function (err, results) {
-  //         if (err) {
-  //           console.error(err);
-  //           console.log(err.code);
-  //           return res.status(500).json({
-  //             error: " Erro interno do servidor :(",
-  //           });
-  //         } else {
-  //           res.status(200).json({
-  //             message: " Lista de todos os usuários:",
-  //             usuarios: results,
-  //           });
-  //         }
-  //       });
-  //     } catch (error) {
-  //       console.error(error);
-  //       res.status(500).json({ error: " Erro interno do servidor" });
-  //     }
-  //   }
+  // Visualizar todos os agendamentos
+  static async getAllAgend(req, res) {
+    const query = `SELECT * FROM agendamentos`;
 
-  // //função que altera a senha do usuário caso o mesmo o desejar.
-  // static async updateAgend(req, res) {
-  //   const { id_usuario, senha, nova_senha } = req.body;
+    try {
+      connect.query(query, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: "Erro ao buscar agendamentos!" });
+        }
+        return res.status(200).json({ message: "Agendamentos listados com sucesso!", agendamentos: results });
+      });
+    } catch (error) {
+      console.log("Erro ao executar consulta:", error);
+      return res.status(500).json({ error: "Erro interno do servidor!" });
+    }
+  }
 
-  //   //filtragem de dados
-  //   if ((!id_usuario, !senha, !nova_senha)) {
-  //     res.status(400).json({ error: " todos os campos devem ser preenchidos" });
-  //   }
-  //   //fim da filtragem
+  // Atualizar um agendamento
+  static async updateAgend(req, res) {
+    const { id_agendamentos, fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo } = req.body;
 
-  //   let query = `SELECT * FROM usuario WHERE id_usuario = ?;`;
+    // Validação dos campos obrigatórios
+    if (!id_agendamentos || !fk_id_usuario || !fk_id_sala || !descricao_agend || !inicio_periodo || !fim_periodo) {
+      return res.status(400).json({ error: "Todos os campos devem ser preenchidos!" });
+    }
 
-  //   try {
-  //     //encontra a senha atual do usuário pelo seu id e descobre se a senha que ele digitou coincide
-  //     connect_database.query(query, [id_usuario], function (err, results) {
-  //       if (err) {
-  //         console.error(err);
-  //         console.log(err.code);
-  //         return res.status(500).json({
-  //           error: " Erro interno do servidor :(",
-  //         });
-  //       }
-  //       if (results[0].senha !== senha) {
-  //         return res.status(400).json({
-  //           error: " senha incorreta",
-  //         });
-  //       } else {
-  //         //substitui (atualiza) a senha do usuário pela nova senha digitada por ele.
-  //         query = `UPDATE usuario SET senha = ? WHERE id_usuario = ?;`;
+    // Verifica se já existe agendamento para a sala no horário
+    const checkQuery = `SELECT * FROM agendamentos WHERE fk_id_sala = ? AND id_agendamentos != ? AND
+                        ((inicio_periodo BETWEEN ? AND ?) OR (fim_periodo BETWEEN ? AND ?))`;
+    const checkValues = [fk_id_sala, id_agendamentos, inicio_periodo, fim_periodo, inicio_periodo, fim_periodo];
 
-  //         connect_database.query(
-  //           query,
-  //           [nova_senha, id_usuario],
-  //           function (err, results) {
-  //             if (err) {
-  //               console.error(err);
-  //               console.log(err.code);
-  //               return res.status(500).json({
-  //                 error: " Erro interno do servidor :(",
-  //               });
-  //             }
-  //             return res
-  //               .status(200)
-  //               .json({ message: " Senha alterada com sucesso" });
-  //           }
-  //         );
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: " Erro interno do servidor" });
-  //   }
-  // }
+    try {
+      connect.query(checkQuery, checkValues, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: "Erro ao verificar disponibilidade da sala!" });
+        }
+        if (results.length > 0) {
+          return res.status(400).json({ error: "A sala já está reservada nesse horário!" });
+        }
 
-  // //remove a conta de um usuário através de um id.
-  // static async deleteAgend(req, res) {
-  //   const id = req.params.id;
-  //   const query = `DELETE FROM usuario WHERE id_usuario = ?;`;
-  //   try {
-  //     connect_database.query(query, [id], function (err, results) {
-  //       if (err) {
-  //         console.error(err);
-  //         console.log(err.code);
-  //         return res.status(500).json({
-  //           error: " Erro interno do servidor :(",
-  //         });
-  //       }
-  //       if (results.affectedRows === 0) {
-  //         return res.status(404).json({
-  //           error: " Usuário não encontrado",
-  //         });
-  //       } else {
-  //         return res.status(200).json({
-  //           message: " Usuário excluído com sucesso",
-  //         });
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: " Erro interno do servidor" });
-  //   }
-  // }
+        // Atualizar o agendamento
+        const query = `UPDATE agendamentos SET fk_id_usuario = ?, fk_id_sala = ?, descricao_agend = ?, inicio_periodo = ?, fim_periodo = ? 
+                       WHERE id_agendamentos = ?`;
+        const values = [fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo, id_agendamentos];
 
+        connect.query(query, values, (err, results) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({ error: "Erro ao atualizar o agendamento!" });
+          }
+          if (results.affectedRows === 0) {
+            return res.status(404).json({ error: "Agendamento não encontrado!" });
+          }
+          return res.status(200).json({ message: "Agendamento atualizado com sucesso!" });
+        });
+      });
+    } catch (error) {
+      console.log("Erro ao executar consulta:", error);
+      return res.status(500).json({ error: "Erro interno do servidor!" });
+    }
+  }
 
-}
+  // Excluir um agendamento
+  static async deleteAgend(req, res) {
+    const idAgendamento = req.params.id;
+
+    const query = `DELETE FROM agendamentos WHERE id_agendamentos = ?`;
+
+    try {
+      connect.query(query, idAgendamento, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: "Erro ao excluir o agendamento!" });
+        }
+        if (results.affectedRows === 0) {
+          return res.status(404).json({ error: "Agendamento não encontrado!" });
+        }
+        return res.status(200).json({ message: "Agendamento excluído com sucesso!" });
+      });
+    } catch (error) {
+      console.log("Erro ao executar a consulta!", error);
+      return res.status(500).json({ error: "Erro interno do servidor!" });
+    }
+  }
+
+};
