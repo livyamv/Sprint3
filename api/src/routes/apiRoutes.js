@@ -5,6 +5,8 @@ const router = require("express").Router();
 const salasController = require("../controllers/salasController");
 //requere a classe 'usuario_controller'
 const usuario_controller = require("../controllers/usuario_controller");
+const agendamentosController = require("../controllers/agendamentosController");
+
 
 //usuario
 router.post('/usuario_cadastro', usuario_controller.cadastrar_usuario);
@@ -18,6 +20,12 @@ router.post('/sala', salasController.createSalas);
 router.get('/sala', salasController.getAllSalas);
 router.put('/sala', salasController.updateSalas);
 router.delete('/sala/:id', salasController.deleteSalas);
+
+//agendamentos
+router.post('/agendamento', agendamentosController.createAgend);
+router.get('/agendamento', agendamentosController.getAllAgend);
+router.put('/agendamento', agendamentosController.updateAgend);
+router.delete('/agendamento/:id', agendamentosController.deleteAgend);
 
 
 module.exports = router;
