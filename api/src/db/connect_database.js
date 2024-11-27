@@ -8,8 +8,8 @@ const mysql = require('mysql2');
 //função que permite a conexão da api com o banco de dados para consultas e manipulação de dados das tabelas.
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    user: 'alunods',
+    host: '10.89.240.80',
+    user: 'mafer',
     password: 'senai@604',
     database: 'reservas_salas'
 })
