@@ -21,9 +21,9 @@ header {
   background-color: #e00000;
   padding-left: 20px;
   padding-top: 10px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
   width: 100%;
-  height: 20px;
+  height: 60px;
   text-align: center;
 }
 
@@ -181,4 +181,46 @@ footer {
   padding-right: 80px;
   gap: 80px;
   flex-wrap: wrap;
+}
+
+.botoes-das-salas a {
+  text-decoration: none;
+}
+
+.titulo-salas {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+}
+
+#titulo-salas1 {
+  display: flex;
+  justify-content: center;
+  
+}
+
+table {
+  width: 100%; /* Largura total da tabela */
+  border-collapse: collapse; /* Remove espaços entre bordas */
+  margin-top: 20px; /* Espaçamento superior */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Borda cinza clara */
+  padding: 8px; /* Espaçamento interno */
+  text-align: left; /* Alinhamento à esquerda */
+}
+
+th {
+  background-color: #4caf50; /* Cor de fundo para cabeçalho */
+  color: white; /* Cor do texto no cabeçalho */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Cor de fundo para linhas pares */
+}
+
+tr:hover {
+  background-color: #ddd; /* Cor de fundo ao passar o mouse */
 }
