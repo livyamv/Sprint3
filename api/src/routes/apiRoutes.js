@@ -21,6 +21,10 @@ router.post('/sala', salasController.createSalas);
 router.get('/sala', salasController.getAllSalas);
 router.put('/sala', salasController.updateSalas);
 router.delete('/sala/:id', salasController.deleteSalas);
+router.get('/blocoa', salasController.getBlocoA);
+router.get('/blocob', salasController.getBlocoB);
+router.get('/blococ', salasController.getBlocoC);
+router.get('/blocod', salasController.getBlocoD);
 
 //agendamentos
 router.post('/agendamento', agendamentosController.createAgend);

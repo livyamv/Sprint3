@@ -3,14 +3,14 @@ const connect_database = require("../db/connect_database");
 module.exports = class salasController{
     //create
     static async createSalas (req, res){
-        const {descricao_sala, nome_sala, capacidade} = req.body;
+        const {descricao_sala, nome_sala, capacidade, bloco} = req.body;
 
         if (!descricao_sala || !nome_sala || !capacidade) {
             return res.status(400).json({error: "Todos os campos devem ser preenchidos!"});
         }
-
+        
         const query = `INSERT INTO salas (descricao_sala, nome_sala, capacidade) VALUES (?, ?, ?)`;
-        const values = [descricao_sala, nome_sala, capacidade];
+        const values = [descricao_sala, nome_sala, capacidade, bloco];
 
         try{
             connect_database.query(query, values, (err) => {
@@ -101,4 +101,94 @@ module.exports = class salasController{
         }
     }
 
+
+    //salas bloco a
+    static async getBlocoA(req, res){
+        
+        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'A%'`;
+
+        try{
+            connect_database.query(query, (err, results) => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({error: "Erro ao listar salas do Bloco A!"});
+                }
+                if(results.affectedRows === 0){
+                    return res.status(404).json({error:"Sala(s) não encontrada(s)"});
+                }
+                return res.status(200).json({message: "Salas encontradas", sala: results});
+            })
+        }catch(error){
+            console.log("Erro ao executar consulta!", error);
+            return res.status(500).json({error: "Erro interno do servidor!"});
+        }
+    }
+
+    //salas bloco b
+    static async getBlocoB(req, res){
+        
+        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'B%'`;
+
+        try{
+            connect_database.query(query, (err, results) => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({error: "Erro ao listar salas do Bloco B!"});
+                }
+                if(results.affectedRows === 0){
+                    return res.status(404).json({error:"Sala(s) não encontrada(s)"});
+                }
+                return res.status(200).json({message: "Salas encontradas", sala: results});
+            })
+        }catch(error){
+            console.log("Erro ao executar consulta!", error);
+            return res.status(500).json({error: "Erro interno do servidor!"});
+        }
+    }
+    //salas bloco C
+    static async getBlocoC(req, res){
+        
+        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'C%'`;
+
+        try{
+            connect_database.query(query, (err, results) => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({error: "Erro ao listar salas do Bloco C!"});
+                }
+                if(results.affectedRows === 0){
+                    return res.status(404).json({error:"Sala(s) não encontrada(s)"});
+                }
+                return res.status(200).json({message: "Salas encontradas", sala: results});
+            })
+        }catch(error){
+            console.log("Erro ao executar consulta!", error);
+            return res.status(500).json({error: "Erro interno do servidor!"});
+        }
+    }
+    //salas bloco D
+    static async getBlocoD(req, res){
+        
+        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'D%'`;
+
+        try{
+            connect_database.query(query, (err, results) => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({error: "Erro ao listar salas do Bloco D!"});
+                }
+                if(results.affectedRows === 0){
+                    return res.status(404).json({error:"Sala(s) não encontrada(s)"});
+                }
+                return res.status(200).json({message: "Salas encontradas", sala: results});
+            })
+        }catch(error){
+            console.log("Erro ao executar consulta!", error);
+            return res.status(500).json({error: "Erro interno do servidor!"});
+        }
+    }
+
+
+
+   
 }
