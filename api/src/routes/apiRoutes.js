@@ -7,6 +7,7 @@ const salasController = require("../controllers/salasController");
 const usuario_controller = require("../controllers/usuario_controller");
 const agendamentosController = require("../controllers/agendamentosController");
 
+//   http://localhost:5000/Agenda-Senai/api/v1
 
 //usuario
 router.post('/usuario_cadastro', usuario_controller.cadastrar_usuario);

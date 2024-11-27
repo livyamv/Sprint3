@@ -16,7 +16,7 @@ module.exports = class agendamentoController {
     const checkValues = [fk_id_sala, inicio_periodo, fim_periodo, inicio_periodo, fim_periodo];
 
     try {
-      connect.query(checkQuery, checkValues, (err, results) => {
+      connect_database.query(checkQuery, checkValues, (err, results) => {
         if (err) {
           console.log(err);
           return res.status(500).json({ error: "Erro ao verificar disponibilidade da sala!" });
@@ -24,13 +24,24 @@ module.exports = class agendamentoController {
         if (results.length > 0) {
           return res.status(400).json({ error: "A sala já está reservada nesse horário!" });
         }
+        if (inicio_periodo > fim_periodo){
+          return res.status(400).json({error: "O horário de inicio é maior que o horário de fim!"});
+        }
+        if(inicio_periodo === fim_periodo){
+          return res.status(400).json({ error: "Os horários estão iguais!"});
+        }
+        const limite_hora = 1000 * 60 * 60; //1 hora em milesegundos
+        const HorarioReserva = (fim_periodo - inicio_periodo); 
+        if(HorarioReserva > limite_hora){
+          return res.status(400).json({error: "A sua reserva excede o tempo máximo de agendamento!"});
+        }
 
         // Inserir o novo agendamento
         const query = `INSERT INTO agendamentos (fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo) 
                        VALUES (?, ?, ?, ?, ?)`;
         const values = [fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo];
 
-        connect.query(query, values, (err) => {
+        connect_database.query(query, values, (err) => {
           if (err) {
             console.log(err);
             return res.status(500).json({ error: "Erro ao criar o agendamento!" });
@@ -49,7 +60,7 @@ module.exports = class agendamentoController {
     const query = `SELECT * FROM agendamentos`;
 
     try {
-      connect.query(query, (err, results) => {
+      connect_database.query(query, (err, results) => {
         if (err) {
           console.log(err);
           return res.status(500).json({ error: "Erro ao buscar agendamentos!" });
@@ -77,7 +88,7 @@ module.exports = class agendamentoController {
     const checkValues = [fk_id_sala, id_agendamentos, inicio_periodo, fim_periodo, inicio_periodo, fim_periodo];
 
     try {
-      connect.query(checkQuery, checkValues, (err, results) => {
+      connect_database.query(checkQuery, checkValues, (err, results) => {
         if (err) {
           console.log(err);
           return res.status(500).json({ error: "Erro ao verificar disponibilidade da sala!" });
@@ -91,7 +102,7 @@ module.exports = class agendamentoController {
                        WHERE id_agendamentos = ?`;
         const values = [fk_id_usuario, fk_id_sala, descricao_agend, inicio_periodo, fim_periodo, id_agendamentos];
 
-        connect.query(query, values, (err, results) => {
+        connect_database.query(query, values, (err, results) => {
           if (err) {
             console.log(err);
             return res.status(500).json({ error: "Erro ao atualizar o agendamento!" });
@@ -115,7 +126,7 @@ module.exports = class agendamentoController {
     const query = `DELETE FROM agendamentos WHERE id_agendamentos = ?`;
 
     try {
-      connect.query(query, idAgendamento, (err, results) => {
+      connect_database.query(query, idAgendamento, (err, results) => {
         if (err) {
           console.log(err);
           return res.status(500).json({ error: "Erro ao excluir o agendamento!" });
