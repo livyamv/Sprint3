@@ -159,7 +159,26 @@ footer {
 
 .botao-sala {
   display: flex;
-  background-color: #e00000;
-  margin: 100px;
-  border:100px #edfd0b;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: #D9D9D9;
+  border: 10px solid #C4C4C4;
+  border-radius: 20px;
+  font-size: 22px;
+  width: 200px;
+  height: 90px;
+  background-position: 200px;
+  
+}
+
+.botoes-das-salas {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 120px;
+  padding-right: 80px;
+  gap: 80px;
+  flex-wrap: wrap;
 }
