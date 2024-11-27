@@ -24,6 +24,30 @@ module.exports = class agendamentoController {
         .json({ error: "Todos os campos devem ser preenchidos!" });
     }
 
+    // Converte os horários de início e fim para objetos Date
+    const inicio = new Date(inicio_periodo);
+    const fim = new Date(fim_periodo);
+
+    // Define os horários de limite (7h00 e 21h00)
+    const limiteInicio = new Date(inicio);
+    limiteInicio.setHours(7, 0, 0, 0); //limite do inicio
+    const limiteFim = new Date(inicio);
+    limiteFim.setHours(21, 0, 0, 0); //limite do fim
+
+    // Verifica se o horário de início e fim estão dentro do intervalo permitido (7h - 21h)
+    if (inicio < limiteInicio || inicio >= limiteFim) {
+      return res
+        .status(400)
+        .json({ error: "O horário de início deve ser entre 07:00 e 21:00!" });
+    }
+
+    if (fim <= inicio || fim > limiteFim) {
+      return res.status(400).json({
+        error:
+          "O horário de término deve ser entre 07:00 e 21:00 e não pode ser antes do horário de início!",
+      });
+    }
+
     // Verifica se já existe agendamento para a sala no horário
     const checkQuery = `SELECT * 
     FROM agendamentos
@@ -41,7 +65,7 @@ module.exports = class agendamentoController {
       inicio_periodo,
       fim_periodo,
       inicio_periodo,
-      fim_periodo
+      fim_periodo,
     ];
 
     try {
@@ -58,22 +82,19 @@ module.exports = class agendamentoController {
             .json({ error: "A sala já está reservada nesse horário!" });
         }
         if (inicio_periodo > fim_periodo) {
-          return res
-            .status(400)
-            .json({
-              error: "O horário de inicio é maior que o horário de fim!",
-            });
+          return res.status(400).json({
+            error: "O horário de inicio é maior que o horário de fim!",
+          });
         }
         if (inicio_periodo === fim_periodo) {
           return res.status(400).json({ error: "Os horários estão iguais!" });
         }
         const limite_hora = 1000 * 60 * 60; //1 hora em milesegundos
         if (new Date(fim_periodo) - new Date(inicio_periodo) > limite_hora) {
-          return res
-            .status(400)
-            .json({
-              error: "A sua reserva excede o tempo máximo de agendamento(1 hora), se necessário faça uma segunda reserva!",
-            });
+          return res.status(400).json({
+            error:
+              "A sua reserva excede o tempo máximo de agendamento(1 hora), se necessário faça uma segunda reserva!",
+          });
         }
 
         // Inserir o novo agendamento
@@ -117,12 +138,10 @@ module.exports = class agendamentoController {
             .status(500)
             .json({ error: "Erro ao buscar agendamentos!" });
         }
-        return res
-          .status(200)
-          .json({
-            message: "Agendamentos listados com sucesso!",
-            agendamentos: results,
-          });
+        return res.status(200).json({
+          message: "Agendamentos listados com sucesso!",
+          agendamentos: results,
+        });
       });
     } catch (error) {
       console.log("Erro ao executar consulta:", error);
@@ -153,6 +172,30 @@ module.exports = class agendamentoController {
       return res
         .status(400)
         .json({ error: "Todos os campos devem ser preenchidos!" });
+    }
+
+    // Converte os horários de início e fim para objetos Date
+    const inicio = new Date(inicio_periodo);
+    const fim = new Date(fim_periodo);
+
+    // Define os horários de limite (7h00 e 21h00)
+    const limiteInicio = new Date(inicio);
+    limiteInicio.setHours(7, 0, 0, 0); //limite do inicio
+    const limiteFim = new Date(inicio);
+    limiteFim.setHours(21, 0, 0, 0); //limite do fim
+
+    // Verifica se o horário de início e fim estão dentro do intervalo permitido (7h - 21h)
+    if (inicio < limiteInicio || inicio >= limiteFim) {
+      return res
+        .status(400)
+        .json({ error: "O horário de início deve ser entre 07:00 e 21:00!" });
+    }
+
+    if (fim <= inicio || fim > limiteFim) {
+      return res.status(400).json({
+        error:
+          "O horário de término deve ser entre 07:00 e 21:00 e não pode ser antes do horário de início!",
+      });
     }
 
     // Verifica se já existe agendamento para a sala no horário
