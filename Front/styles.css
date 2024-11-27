@@ -99,10 +99,15 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-  background-color: rgb(208, 208, 208); 
+  
   top: 55px;
   width: 255px;
   border: 5px;
+}
+
+.form-grupo input {
+  margin-right: 10px;
+  margin-left: 10px; 
 }
 
 .retangulo_index{
@@ -150,8 +155,11 @@ footer {
 
 }
 
-#email {
-  margin-right: 5px;
-  
-  
+
+
+.botao-sala {
+  display: flex;
+  background-color: #e00000;
+  margin: 100px;
+  border:100px #edfd0b;
 }
