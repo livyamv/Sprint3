@@ -105,7 +105,7 @@ module.exports = class salasController{
     //salas bloco a
     static async getBlocoA(req, res){
         
-        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'A%'`;
+        const query = `SELECT nome_sala, descricao_sala, capacidade FROM salas WHERE nome_sala LIKE 'A%'`;
 
         try{
             connect_database.query(query, (err, results) => {
@@ -127,7 +127,7 @@ module.exports = class salasController{
     //salas bloco b
     static async getBlocoB(req, res){
         
-        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'B%'`;
+        const query = `SELECT nome_sala, descricao_sala, capacidade FROM salas WHERE nome_sala LIKE 'B%'`;
 
         try{
             connect_database.query(query, (err, results) => {
@@ -148,7 +148,7 @@ module.exports = class salasController{
     //salas bloco C
     static async getBlocoC(req, res){
         
-        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'C%'`;
+        const query = `SELECT nome_sala, descricao_sala, capacidade FROM salas WHERE nome_sala LIKE 'C%'`;
 
         try{
             connect_database.query(query, (err, results) => {
@@ -169,7 +169,7 @@ module.exports = class salasController{
     //salas bloco D
     static async getBlocoD(req, res){
         
-        const query = `SELECT nome_sala FROM salas WHERE nome_sala LIKE 'D%'`;
+        const query = `SELECT nome_sala, descricao_sala, capacidade FROM salas WHERE nome_sala LIKE 'D%'`;
 
         try{
             connect_database.query(query, (err, results) => {

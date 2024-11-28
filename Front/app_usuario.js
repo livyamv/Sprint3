@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //Chamada da função cadastrar_usuario para a associação ao evento de envio do formulário
 
   function cadastrar_usuario(event) {
-    //previne o comportamento padrão do formulário, ou seja, impede que ele saja enviado e recarregue a página
+    //previne o comportamento padrão do formulário, ou seja, impede que ele recarregue a página ao ser enviado
     event.preventDefault();
     //Captura os valores dos compos de formulario
     const nome_usuario = document.getElementById("nome").value;

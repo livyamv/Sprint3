@@ -1,0 +1,107 @@
+/* este segundo arquivo facilita a estilização, pois nas páginas anteriores, o flex-direction esta como row,
+e para estas páginas com tabela é mais facil usar o column. */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(imagem_de_fundo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: auto;
+    color: #000;
+    font-family: Arial, sans-serif;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+}
+
+header {
+    background-color: #e00000;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+}
+
+header img {
+    max-width: 200px;
+}
+
+.header-senai {
+    display: flex;
+    flex-grow: 1;
+    width: 150px;
+    height: auto;
+}
+
+.titulo-antes-da-tabela {
+    display: flex;
+    
+    justify-content: center;
+    margin: 40px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#tabela-salas {
+    display:flex;
+    justify-content: center;
+}
+
+table {
+    width: 80%;
+    /* Largura total da tabela */
+    border-collapse: collapse;
+    /* Remove espaços entre bordas */
+    
+    
+}
+
+th,
+td {
+    border: 1px solid #afafaf;
+    /* Borda cinza clara */
+    padding: 8px;
+    /* Espaçamento interno */
+    text-align: left;
+    /* Alinhamento à esquerda */
+}
+
+th {
+    background-color: #c0c9c1;
+    /* Cor de fundo para cabeçalho */
+    color: rgb(34, 32, 32);
+    /* Cor do texto no cabeçalho */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Cor de fundo para linhas pares */
+}
+
+tr:hover {
+    background-color: #ddd;
+    /* Cor de fundo ao passar o mouse */
+}
+
+footer {
+    background-color: #e00000;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    position:absolute;
+    width: 100%;
+}
