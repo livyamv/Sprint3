@@ -3,14 +3,14 @@ const connect_database = require("../db/connect_database");
 module.exports = class salasController{
     //create
     static async createSalas (req, res){
-        const {descricao_sala, nome_sala, capacidade, bloco} = req.body;
+        const {descricao_sala, nome_sala, capacidade} = req.body;
 
         if (!descricao_sala || !nome_sala || !capacidade) {
             return res.status(400).json({error: "Todos os campos devem ser preenchidos!"});
         }
         
         const query = `INSERT INTO salas (descricao_sala, nome_sala, capacidade) VALUES (?, ?, ?)`;
-        const values = [descricao_sala, nome_sala, capacidade, bloco];
+        const values = [descricao_sala, nome_sala, capacidade];
 
         try{
             connect_database.query(query, values, (err) => {
