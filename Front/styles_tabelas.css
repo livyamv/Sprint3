@@ -8,7 +8,6 @@ e para estas páginas com tabela é mais facil usar o column. */
 }
 
 body {
-<<<<<<< HEAD
     background-image: url(imagem_de_fundo.jpg);
     background-size: cover;
     background-position: center;
@@ -18,17 +17,6 @@ body {
     color: #000;
     font-family: Arial, sans-serif;
     display: flex;
-=======
-  background-image: url(imagem_de_fundo.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  height: auto;
-  color: #000;
-  font-family: Arial, sans-serif;
-  /* display: flex;
->>>>>>> 5100d94ece309d3f21d0eb66e92fa0beac14e4e6
     flex-direction: column;
     justify-content: space-between;
 }
@@ -124,7 +112,6 @@ tr:hover {
 }
 
 footer {
-<<<<<<< HEAD
     background-color: #e00000;
     color: #fff;
     text-align: center;
@@ -132,13 +119,3 @@ footer {
     bottom: 0;
     width: 100%;
 }
-=======
-  background-color: #e00000;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-}
->>>>>>> 5100d94ece309d3f21d0eb66e92fa0beac14e4e6

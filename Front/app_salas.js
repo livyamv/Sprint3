@@ -66,11 +66,7 @@ function getBlocoA() {
 }
 
 function getBlocoB() {
-<<<<<<< HEAD
   fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blocob", {
-=======
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blocob", {
->>>>>>> 5100d94ece309d3f21d0eb66e92fa0beac14e4e6
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -115,11 +111,7 @@ function getBlocoB() {
 }
 
 function getBlocoC() {
-<<<<<<< HEAD
   fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blococ", {
-=======
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blococ", {
->>>>>>> 5100d94ece309d3f21d0eb66e92fa0beac14e4e6
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -164,11 +156,7 @@ function getBlocoC() {
 }
 
 function getBlocoD() {
-<<<<<<< HEAD
   fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blocod", {
-=======
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blocod", {
->>>>>>> 5100d94ece309d3f21d0eb66e92fa0beac14e4e6
     method: "GET",
     headers: {
       "Content-Type": "application/json",
