@@ -30,10 +30,10 @@ module.exports = class agendamentoController {
     const fim = new Date(fim_periodo);
 
     // Define os horários de limite (7h00 e 21h00)
-    const limiteInicio = new Date(inicio); //criado um objeto Date para cada limite do inicio
-    limiteInicio.setHours(7, 0, 0, 0); //limite do inicio
-    const limiteFim = new Date(inicio);
-    limiteFim.setHours(21, 0, 0, 0); //limite do fim
+    const limiteInicio = new Date(inicio); //criado um objeto Date para limite do inicio
+    limiteInicio.setHours(7, 0, 0, 0); //altera apenas a hora do limite de inicio
+    const limiteFim = new Date(inicio); //criado um objeto Date para limite do fim
+    limiteFim.setHours(21, 0, 0, 0); //altera apenas a hora do limite de fim
 
     // Verifica se o horário de início e fim estão dentro do intervalo permitido (7h - 21h)
     if (inicio < limiteInicio || inicio >= limiteFim) {
