@@ -10,197 +10,195 @@ const pagina_atual = window.location.pathname.split("/").pop();
 
 //esses if's permitem que este arquivo js rode apenas o "addEventListener" necessário para a página em que o usuário estiver.
 
-if(pagina_atual === "blocoA.html"){
+if (pagina_atual === "blocoA.html") {
   document.addEventListener("DOMContentLoaded", getBlocoA);
-  
-} else if(pagina_atual === "blocoB.html"){
+} else if (pagina_atual === "blocoB.html") {
   document.addEventListener("DOMContentLoaded", getBlocoB);
-  
-} else if(pagina_atual === "blocoC.html"){
+} else if (pagina_atual === "blocoC.html") {
   document.addEventListener("DOMContentLoaded", getBlocoC);
-  
-} else if(pagina_atual === "blocoD.html"){
+} else if (pagina_atual === "blocoD.html") {
   document.addEventListener("DOMContentLoaded", getBlocoD);
-  
-} 
+}
 
-
-function getBlocoA(){
+function getBlocoA() {
   fetch("http://localhost:5000/Agenda-Senai/api/v1/blocoa", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      }
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.ok) {
-          return response.json();
-        }
-        return response.json().then((err) => {
-          throw new Error(err.error);
-        });
-    }) 
-      .then((data) => {
-          const lista_salas = document.getElementById("tabela-blocoa");
-          lista_salas.innerHTML = "";
-          data.sala.forEach((sala) => {
-                //Cria uma nova linha
-              const tr = document.createElement("tr");
+        return response.json();
+      }
+      return response.json().then((err) => {
+        throw new Error(err.error);
+      });
+    })
+    .then((data) => {
+      const lista_salas = document.getElementById("tabela-blocoa");
+      lista_salas.innerHTML = "";
+      data.sala.forEach((sala) => {
+        //Cria uma nova linha
+        const tr = document.createElement("tr");
 
-              //Cria células para nome, cpf e email
-              const td_nome = document.createElement("td");
-              td_nome.textContent = sala.nome_sala;
-              tr.appendChild(td_nome);
+        //Cria células para nome, cpf e email
+        const td_nome = document.createElement("td");
+        td_nome.textContent = sala.nome_sala;
+        tr.appendChild(td_nome);
 
-              const descricao_sala = document.createElement("td");
-              descricao_sala.textContent = sala.descricao_sala;
-              tr.appendChild(descricao_sala);
+        const descricao_sala = document.createElement("td");
+        descricao_sala.textContent = sala.descricao_sala;
+        tr.appendChild(descricao_sala);
 
-              const capacidade = document.createElement("td");
-              capacidade.textContent = sala.capacidade;
-              tr.appendChild(capacidade);
+        const capacidade = document.createElement("td");
+        capacidade.textContent = sala.capacidade;
+        tr.appendChild(capacidade);
 
-              //Adiciona a linha à tabela
-              lista_salas.appendChild(tr);
-          });
-      }).catch((error) => {
-          alert("Erro ao obter a lista das salas: " + error.message);
-          console.error("Erro: ", error.message);
-        });
+        //Adiciona a linha à tabela
+        lista_salas.appendChild(tr);
+      });
+    })
+    .catch((error) => {
+      alert("Erro ao obter a lista das salas: " + error.message);
+      console.error("Erro: ", error.message);
+    });
 }
 
-function getBlocoB(){
+function getBlocoB() {
   fetch("http://localhost:5000/Agenda-Senai/api/v1/blocob", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      }
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.ok) {
-          return response.json();
-        }
-        return response.json().then((err) => {
-          throw new Error(err.error);
-        });
-    }) 
-      .then((data) => {
-          const lista_salas = document.getElementById("tabela-blocob");
-          lista_salas.innerHTML = "";
-          data.sala.forEach((sala) => {
-                //Cria uma nova linha
-              const tr = document.createElement("tr");
+        return response.json();
+      }
+      return response.json().then((err) => {
+        throw new Error(err.error);
+      });
+    })
+    .then((data) => {
+      const lista_salas = document.getElementById("tabela-blocob");
+      lista_salas.innerHTML = "";
+      data.sala.forEach((sala) => {
+        //Cria uma nova linha
+        const tr = document.createElement("tr");
 
-              //Cria células para nome, cpf e email
-              const td_nome = document.createElement("td");
-              td_nome.textContent = sala.nome_sala;
-              tr.appendChild(td_nome);
+        //Cria células para nome, cpf e email
+        const td_nome = document.createElement("td");
+        td_nome.textContent = sala.nome_sala;
+        tr.appendChild(td_nome);
 
-              const descricao_sala = document.createElement("td");
-              descricao_sala.textContent = sala.descricao_sala;
-              tr.appendChild(descricao_sala);
+        const descricao_sala = document.createElement("td");
+        descricao_sala.textContent = sala.descricao_sala;
+        tr.appendChild(descricao_sala);
 
-              const capacidade = document.createElement("td");
-              capacidade.textContent = sala.capacidade;
-              tr.appendChild(capacidade);
+        const capacidade = document.createElement("td");
+        capacidade.textContent = sala.capacidade;
+        tr.appendChild(capacidade);
 
-              //Adiciona a linha à tabela
-              lista_salas.appendChild(tr);
-          });
-      }).catch((error) => {
-          alert("Erro ao obter a lista das salas: " + error.message);
-          console.error("Erro: ", error.message);
-        });
+        //Adiciona a linha à tabela
+        lista_salas.appendChild(tr);
+      });
+    })
+    .catch((error) => {
+      alert("Erro ao obter a lista das salas: " + error.message);
+      console.error("Erro: ", error.message);
+    });
 }
 
-function getBlocoC(){
+function getBlocoC() {
   fetch("http://localhost:5000/Agenda-Senai/api/v1/blococ", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      }
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.ok) {
-          return response.json();
-        }
-        return response.json().then((err) => {
-          throw new Error(err.error);
-        });
-    }) 
-      .then((data) => {
-          const lista_salas = document.getElementById("tabela-blococ");
-          lista_salas.innerHTML = "";
-          data.sala.forEach((sala) => {
-                //Cria uma nova linha
-              const tr = document.createElement("tr");
+        return response.json();
+      }
+      return response.json().then((err) => {
+        throw new Error(err.error);
+      });
+    })
+    .then((data) => {
+      const lista_salas = document.getElementById("tabela-blococ");
+      lista_salas.innerHTML = "";
+      data.sala.forEach((sala) => {
+        //Cria uma nova linha
+        const tr = document.createElement("tr");
 
-              //Cria células para nome, cpf e email
-              const td_nome = document.createElement("td");
-              td_nome.textContent = sala.nome_sala;
-              tr.appendChild(td_nome);
+        //Cria células para nome, cpf e email
+        const td_nome = document.createElement("td");
+        td_nome.textContent = sala.nome_sala;
+        tr.appendChild(td_nome);
 
-              const descricao_sala = document.createElement("td");
-              descricao_sala.textContent = sala.descricao_sala;
-              tr.appendChild(descricao_sala);
+        const descricao_sala = document.createElement("td");
+        descricao_sala.textContent = sala.descricao_sala;
+        tr.appendChild(descricao_sala);
 
-              const capacidade = document.createElement("td");
-              capacidade.textContent = sala.capacidade;
-              tr.appendChild(capacidade);
+        const capacidade = document.createElement("td");
+        capacidade.textContent = sala.capacidade;
+        tr.appendChild(capacidade);
 
-              //Adiciona a linha à tabela
-              lista_salas.appendChild(tr);
-          });
-      }).catch((error) => {
-          alert("Erro ao obter a lista das salas: " + error.message);
-          console.error("Erro: ", error.message);
-        });
+        //Adiciona a linha à tabela
+        lista_salas.appendChild(tr);
+      });
+    })
+    .catch((error) => {
+      alert("Erro ao obter a lista das salas: " + error.message);
+      console.error("Erro: ", error.message);
+    });
 }
 
-function getBlocoD(){
+function getBlocoD() {
   fetch("http://localhost:5000/Agenda-Senai/api/v1/blocod", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      }
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.ok) {
-          return response.json();
-        }
-        return response.json().then((err) => {
-          throw new Error(err.error);
-        });
-    }) 
-      .then((data) => {
-          const lista_salas = document.getElementById("tabela-blocod");
-          lista_salas.innerHTML = "";
-          data.sala.forEach((sala) => {
-                //Cria uma nova linha
-              const tr = document.createElement("tr");
+        return response.json();
+      }
+      return response.json().then((err) => {
+        throw new Error(err.error);
+      });
+    })
+    .then((data) => {
+      const lista_salas = document.getElementById("tabela-blocod");
+      lista_salas.innerHTML = "";
+      data.sala.forEach((sala) => {
+        //Cria uma nova linha
+        const tr = document.createElement("tr");
 
-              //Cria células para nome, cpf e email
-              const td_nome = document.createElement("td");
-              td_nome.textContent = sala.nome_sala;
-              tr.appendChild(td_nome);
+        //Cria células para nome, cpf e email
+        const td_nome = document.createElement("td");
+        td_nome.textContent = sala.nome_sala;
+        tr.appendChild(td_nome);
 
-              const descricao_sala = document.createElement("td");
-              descricao_sala.textContent = sala.descricao_sala;
-              tr.appendChild(descricao_sala);
+        const descricao_sala = document.createElement("td");
+        descricao_sala.textContent = sala.descricao_sala;
+        tr.appendChild(descricao_sala);
 
-              const capacidade = document.createElement("td");
-              capacidade.textContent = sala.capacidade;
-              tr.appendChild(capacidade);
+        const capacidade = document.createElement("td");
+        capacidade.textContent = sala.capacidade;
+        tr.appendChild(capacidade);
 
-              //Adiciona a linha à tabela
-              lista_salas.appendChild(tr);
-          });
-      }).catch((error) => {
-          alert("Erro ao obter a lista das salas: " + error.message);
-          console.error("Erro: ", error.message);
-        });
+        //Adiciona a linha à tabela
+        lista_salas.appendChild(tr);
+      });
+    })
+    .catch((error) => {
+      alert("Erro ao obter a lista das salas: " + error.message);
+      console.error("Erro: ", error.message);
+    });
 }
-
 
 // document.addEventListener("DOMContentLoaded", getAllSalas);
 
@@ -218,7 +216,7 @@ function getBlocoD(){
 //         return response.json().then((err) => {
 //           throw new Error(err.error);
 //         });
-//     }) 
+//     })
 //       .then((data) => {
 //           const lista_salas = document.getElementById("tabela-salas-body");
 //           lista_salas.innerHTML = "";

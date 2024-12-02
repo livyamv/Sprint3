@@ -2,7 +2,7 @@ const express = require("express"); //Importa o express
 
 const cors = require("cors");
 
-const test_connect = require('./db/test_connect');
+const test_connect = require("./db/test_connect");
 
 //Define uma classe para organizar a lógica de aplicação
 class AppController {

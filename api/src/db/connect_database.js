@@ -3,16 +3,16 @@
  Isto é possível graças ao "module.exports".*/
 
 //requere a biblioteca "mysql2" instalada via npm
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 
 //função que permite a conexão da api com o banco de dados para consultas e manipulação de dados das tabelas.
 const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: '10.89.240.80',
-    user: 'mafer',
-    password: 'senai@604',
-    database: 'reservas_salas'
-})
+  connectionLimit: 10,
+  host: "10.89.240.80",
+  user: "livia",
+  password: "senai@604",
+  database: "reservas_salas",
+});
 
 //exporta
 module.exports = pool;

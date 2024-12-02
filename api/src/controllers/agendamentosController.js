@@ -224,6 +224,22 @@ module.exports = class agendamentoController {
             .json({ error: "A sala já está reservada nesse horário!" });
         }
 
+        if (inicio_periodo > fim_periodo) {
+          return res.status(400).json({
+            error: "O horário de inicio é maior que o horário de fim!",
+          });
+        }
+        if (inicio_periodo === fim_periodo) {
+          return res.status(400).json({ error: "Os horários estão iguais!" });
+        }
+        const limite_hora = 1000 * 60 * 60; //1 hora em milesegundos
+        if (new Date(fim_periodo) - new Date(inicio_periodo) > limite_hora) {
+          return res.status(400).json({
+            error:
+              "A sua reserva excede o tempo máximo de agendamento(1 hora), se necessário faça uma segunda reserva!",
+          });
+        }
+
         // Atualizar o agendamento
         const query = `UPDATE agendamentos SET fk_id_usuario = ?, fk_id_sala = ?, descricao_agend = ?, inicio_periodo = ?, fim_periodo = ? 
                        WHERE id_agendamentos = ?`;
