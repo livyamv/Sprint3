@@ -3,6 +3,7 @@ const connect_database = require("../db/connect_database");
 module.exports = class agendamentoController {
   // Criação de um agendamento
   static async createAgend(req, res) {
+    //dados de entrada
     const {
       fk_id_usuario,
       fk_id_sala,
