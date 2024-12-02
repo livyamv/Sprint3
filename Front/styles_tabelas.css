@@ -16,9 +16,9 @@ body {
     height: auto;
     color: #000;
     font-family: Arial, sans-serif;
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; */
+    justify-content: space-between;
 }
 
 header {
@@ -58,6 +58,24 @@ main {
 #tabela-salas {
     display:flex;
     justify-content: center;
+}
+
+#input_sala_section {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+#input_sala {
+    margin: 20px;
+    width: 140px;
+    margin-right: 10px;
+}
+
+a {
+    margin-top: 20px;
+
 }
 
 table {
@@ -102,6 +120,5 @@ footer {
     text-align: center;
     padding: 10px;
     bottom: 0;
-    position:absolute;
     width: 100%;
 }

@@ -26,7 +26,7 @@ if(pagina_atual === "blocoA.html"){
 
 
 function getBlocoA(){
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blocoa", {
+  fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blocoa", {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function getBlocoA(){
 }
 
 function getBlocoB(){
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blocob", {
+  fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blocob", {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -114,7 +114,7 @@ function getBlocoB(){
 }
 
 function getBlocoC(){
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blococ", {
+  fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blococ", {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ function getBlocoC(){
 }
 
 function getBlocoD(){
-  fetch("http://localhost:5000/Agenda-Senai/api/v1/blocod", {
+  fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/blocod", {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -205,7 +205,7 @@ function getBlocoD(){
 // document.addEventListener("DOMContentLoaded", getAllSalas);
 
 // function getAllSalas(){
-//   fetch("http://localhost:5000/Agenda-Senai/api/v1/sala", {
+//   fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/sala", {
 //       method: "GET",
 //       headers: {
 //           "Content-Type": "application/json",

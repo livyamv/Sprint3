@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const check_senha = document.getElementById("check_senha").value;
 
     //Requisção HTTP para o endpoint de cadastro de usuário
-    fetch("http://localhost:5000/Agenda-Senai/api/v1/usuario_cadastro/", {
+    fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/usuario_cadastro/", {
       //Realiza uma chamada HTTP para o servidor (a rota definida)
       method: "POST",
       headers: {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const senha = document.getElementById("senha").value;
 
     //Requisção HTTP para o endpoint de cadastro de usuário
-    fetch("http://localhost:5000/Agenda-Senai/api/v1/usuario_login/", {
+    fetch("http://10.89.240.80:5000/Agenda-Senai/api/v1/usuario_login/", {
       //Realiza uma chamada HTTP para o servidor (a rota definida)
       method: "POST",
       headers: {

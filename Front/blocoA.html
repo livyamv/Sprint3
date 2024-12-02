@@ -11,9 +11,8 @@
       <img class="header-senai" src="senaisplogo.png" alt="Logo Senai-SP" />
     </header>
     <main>
-      
       <h2 class="titulo-antes-da-tabela">Salas disponíveis</h2>
-      
+
       <section id="tabela-salas">
         <table>
           <thead>
@@ -26,7 +25,20 @@
           </tbody>
         </table>
       </section>
-      
+      <section id="input_sala_section">
+        <form method="POST">
+          <input
+            id="input_sala"
+            type="text"
+            name="sala_escolhida"
+            placeholder="Digite o nome da sala"
+            required
+          />
+          <a href="agendamento.html">
+            <button type="button">Enviar</button>
+          </a>
+        </form>
+      </section>
     </main>
     <footer>
       <h5>Desenvolvido por: Maria Fernanda, Lívia, Rhuan</h5>
