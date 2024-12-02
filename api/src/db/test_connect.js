@@ -4,7 +4,6 @@ const connect_database = require("./connect_database");
 
 module.exports = function testConnect() {
   try {
-
     //usamos um "SELECT" como forma de mandar uma mensagem
     const query = `SELECT 'Conexão bem-sucedida' AS Mensagem`;
     connect_database.query(query, function (err) {

@@ -21,43 +21,45 @@ module.exports = class usuario_controller {
         .json({ error: "as senhas não coincidem (não estão iguais)" });
     } else {
       let check_email = email.split("@");
-      if(!(check_email[1] === "docente.senai.br")){
-        return res.status(400).json({error: "Somente docentes podem se cadastrar"});
+      if (!(check_email[1] === "docente.senai.br")) {
+        return res
+          .status(400)
+          .json({ error: "Somente docentes podem se cadastrar" });
       }
     }
     //fim da filtragem
 
     //query que insere os dados obtidos na tabela "usuario" como um registro
-      const query = `INSERT INTO usuario (senha, email, nome_usuario) VALUES( 
+    const query = `INSERT INTO usuario (senha, email, nome_usuario) VALUES( 
                 '${senha}', 
                 '${email}', 
                 '${nome_usuario}');`;
-      try {
-        //'try' evita que a api pare de funcionar caso ocorra um erro, fazendo as filtragens necessárias para erros do tipo "err" ou "error";
-        connect_database.query(query, function (err, results) {
-          if (err) {
-            console.log(err);
-            console.log(err.code);
-            if (err.code === "ER_DUP_ENTRY") {
-              //"ER_DUP_ENTRY" é um erro do banco de dados que ocorre quando se tenta inserir um dado igual à outro já armazenado, o que não se pode ao serem do tipo UNIQUE (único);
-              return res.status(400).json({
-                error: "O email já está vinculado a outro usuário x(",
-              });
-            } else {
-              return res
-                .status(500)
-                .json({ error: "Erro interno do servidor :(" });
-            }
+    try {
+      //'try' evita que a api pare de funcionar caso ocorra um erro, fazendo as filtragens necessárias para erros do tipo "err" ou "error";
+      connect_database.query(query, function (err, results) {
+        if (err) {
+          console.log(err);
+          console.log(err.code);
+          if (err.code === "ER_DUP_ENTRY") {
+            //"ER_DUP_ENTRY" é um erro do banco de dados que ocorre quando se tenta inserir um dado igual à outro já armazenado, o que não se pode ao serem do tipo UNIQUE (único);
+            return res.status(400).json({
+              error: "O email já está vinculado a outro usuário x(",
+            });
           } else {
             return res
-              .status(201)
-              .json({ message: "Cadastro realizado com sucesso." });
+              .status(500)
+              .json({ error: "Erro interno do servidor :(" });
           }
-        });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Erro interno do servidor" });
-      }
+        } else {
+          return res
+            .status(201)
+            .json({ message: "Cadastro realizado com sucesso." });
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erro interno do servidor" });
+    }
   }
 
   //função que permite o acesso do usuário ao sistema, inserindo suas credenciais.
